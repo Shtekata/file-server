@@ -1,52 +1,126 @@
-import Image from 'next/image'
+import fs from 'fs/promises'
+import path from 'path'
 
-export default function Home() {
+export const dynamic = 'force-dynamic'
+
+const FILES_DIR = '/srv/files'
+
+type FileItem = {
+  name: string
+  href: string
+  size: string
+  modified: string
+  type: 'folder' | 'file'
+}
+
+function formatBytes(bytes: number) {
+  if (bytes === 0) return '0 B'
+  const units = ['B', 'KB', 'MB', 'GB', 'TB']
+  const i = Math.floor(Math.log(bytes) / Math.log(1024))
+  return `${(bytes / Math.pow(1024, i)).toFixed(i === 0 ? 0 : 1)} ${units[i]}`
+}
+
+function fileIcon(name: string, type: 'folder' | 'file') {
+  if (type === 'folder') return '📁'
+
+  const ext = path.extname(name).toLowerCase()
+
+  if (['.jpg', '.jpeg', '.png', '.webp', '.gif', '.svg'].includes(ext)) return '🖼️'
+  if (['.pdf'].includes(ext)) return '📕'
+  if (['.zip', '.rar', '.7z', '.tar', '.gz'].includes(ext)) return '🗜️'
+  if (['.xls', '.xlsx', '.csv'].includes(ext)) return '📊'
+  if (['.doc', '.docx'].includes(ext)) return '📄'
+  if (['.mp4', '.mkv', '.avi', '.mov'].includes(ext)) return '🎬'
+  if (['.mp3', '.wav', '.flac'].includes(ext)) return '🎵'
+
+  return '📦'
+}
+
+async function getFiles(): Promise<FileItem[]> {
+  const entries = await fs.readdir(FILES_DIR, { withFileTypes: true })
+
+  const items = await Promise.all(
+    entries
+      .filter(entry => !entry.name.startsWith('.'))
+      .map(async entry => {
+        const fullPath = path.join(FILES_DIR, entry.name)
+        const stat = await fs.stat(fullPath)
+        const type: 'folder' | 'file' = entry.isDirectory() ? 'folder' : 'file'
+
+        return {
+          name: entry.name,
+          href: entry.isDirectory() ? '#' : `/download/${encodeURIComponent(entry.name)}`,
+          size: entry.isDirectory() ? 'Folder' : formatBytes(stat.size),
+          modified: stat.mtime.toLocaleDateString('bg-BG', {
+            year: 'numeric',
+            month: 'short',
+            day: '2-digit',
+          }),
+          type: type,
+        }
+      }),
+  )
+
+  return items.sort((a, b) => {
+    if (a.type !== b.type) return a.type === 'folder' ? -1 : 1
+    return a.name.localeCompare(b.name)
+  })
+}
+
+export default async function Home() {
+  const files = await getFiles()
+
   return (
-    <div className='flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black'>
-      <main className='flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start'>
-        <Image className='dark:invert' src='/next.svg' alt='Next.js logo' width={100} height={20} priority />
-        <div className='flex flex-col items-center gap-6 text-center sm:items-start sm:text-left'>
-          <h1 className='max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50'>
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className='max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400'>
-            Looking for a starting point or more instructions? Head over to{' '}
-            <a
-              href='https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app'
-              className='font-medium text-zinc-950 dark:text-zinc-50'
-            >
-              Templates
-            </a>{' '}
-            or the{' '}
-            <a
-              href='https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app'
-              className='font-medium text-zinc-950 dark:text-zinc-50'
-            >
-              Learning
-            </a>{' '}
-            center.
-          </p>
+    <main className='min-h-screen bg-zinc-950 text-zinc-100'>
+      <section className='mx-auto max-w-6xl px-6 py-10'>
+        <div className='mb-8 rounded-3xl border border-white/10 bg-white/5 p-8 shadow-2xl'>
+          <p className='mb-2 text-sm uppercase tracking-[0.3em] text-zinc-400'>myperfume.bg</p>
+          <h1 className='text-4xl font-bold tracking-tight'>Downloads</h1>
+          <p className='mt-3 max-w-2xl text-zinc-400'>Download files directly from our public file area.</p>
         </div>
-        <div className='flex flex-col gap-4 text-base font-medium sm:flex-row'>
-          <a
-            className='flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-39.5'
-            href='https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app'
-            target='_blank'
-            rel='noopener noreferrer'
-          >
-            <img className='dark:invert w-4 h-auto' src='/vercel.svg' alt='Vercel logomark' />
-            Deploy Now
-          </a>
-          <a
-            className='flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/8 px-5 transition-colors hover:border-transparent hover:bg-black/4 dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-39.5'
-            href='https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app'
-            target='_blank'
-            rel='noopener noreferrer'
-          >
-            Documentation
-          </a>
+
+        <div className='overflow-hidden rounded-3xl border border-white/10 bg-white/5 shadow-2xl'>
+          <div className='grid grid-cols-12 border-b border-white/10 px-5 py-3 text-sm text-zinc-400'>
+            <div className='col-span-7'>Name</div>
+            <div className='col-span-2'>Size</div>
+            <div className='col-span-2'>Modified</div>
+            <div className='col-span-1 text-right'>Action</div>
+          </div>
+
+          {files.length === 0 ? (
+            <div className='px-5 py-10 text-center text-zinc-400'>No files found in /srv/files.</div>
+          ) : (
+            files.map(file => (
+              <div
+                key={file.name}
+                className='grid grid-cols-12 items-center border-b border-white/5 px-5 py-4 transition hover:bg-white/10'
+              >
+                <div className='col-span-7 flex items-center gap-3 font-medium'>
+                  <span className='text-2xl'>{fileIcon(file.name, file.type)}</span>
+                  <span className='truncate'>{file.name}</span>
+                </div>
+
+                <div className='col-span-2 text-sm text-zinc-400'>{file.size}</div>
+
+                <div className='col-span-2 text-sm text-zinc-400'>{file.modified}</div>
+
+                <div className='col-span-1 text-right'>
+                  {file.type === 'file' ? (
+                    <a
+                      href={file.href}
+                      className='rounded-xl bg-zinc-100 px-4 py-2 text-sm font-semibold text-zinc-950 transition hover:bg-white'
+                    >
+                      Get
+                    </a>
+                  ) : (
+                    <span className='text-zinc-500'>—</span>
+                  )}
+                </div>
+              </div>
+            ))
+          )}
         </div>
-      </main>
-    </div>
+      </section>
+    </main>
   )
 }
