@@ -3,7 +3,7 @@ import path from 'path'
 
 export const dynamic = 'force-dynamic'
 
-const FILES_DIR = '/srv/files'
+const FILES_DIR = process.env.FILES_DIR || '/srv/files'
 
 type FileItem = {
   name: string
@@ -58,11 +58,13 @@ async function getFiles(): Promise<FileItem[]> {
             day: '2-digit',
           }),
 
-          modifiedShort: stat.mtime.toLocaleDateString('bg-BG', {
-            year: '2-digit',
-            month: '2-digit',
-            day: '2-digit',
-          }),
+          modifiedShort: stat.mtime
+            .toLocaleDateString('bg-BG', {
+              year: '2-digit',
+              month: '2-digit',
+              day: '2-digit',
+            })
+            .replace(/\s?г\./, ''),
           type,
         }
       }),
@@ -87,11 +89,11 @@ export default async function Home() {
         </div>
 
         <div className='overflow-hidden rounded-3xl border border-white/10 bg-white/5 ring-1 ring-white/5'>
-          <div className='grid grid-cols-7 sm:grid-cols-12 border-b border-white/10 px-5 py-3 text-sm text-zinc-400'>
-            <div className='col-span-3 sm:col-span-7'>Name</div>
-            <div className='col-span-1'>Size</div>
-            <div className='col-span-2'>Modified</div>
-            <div className='col-span-1 text-right'>Action</div>
+          <div className='grid grid-cols-24 border-b border-white/10 px-5 py-3 text-sm text-zinc-400'>
+            <div className='col-span-9 sm:col-span-15'>Name</div>
+            <div className='col-span-5 sm:col-span-3'>Size</div>
+            <div className='col-span-5 sm:col-span-4'>Modified</div>
+            <div className='col-span-5 sm:col-span-2 text-right'>Action</div>
           </div>
 
           {files.length === 0 ? (
@@ -100,21 +102,21 @@ export default async function Home() {
             files.map(file => (
               <div
                 key={file.name}
-                className='grid grid-cols-7 sm:grid-cols-12 items-center border-b border-white/5 px-5 py-4 transition hover:bg-white/10'
+                className='grid grid-cols-24 items-center border-b border-white/5 px-5 py-4 transition hover:bg-white/10'
               >
-                <div className='col-span-3 sm:col-span-7 flex items-center gap-3 font-medium'>
+                <div className='col-span-9 sm:col-span-15 flex items-center gap-3 font-medium'>
                   <span className='text-2xl'>{fileIcon(file.name, file.type)}</span>
                   <span className='truncate pr-3'>{file.name}</span>
                 </div>
 
-                <div className='col-span-1 text-sm text-zinc-400'>{file.size}</div>
+                <div className='col-span-5 sm:col-span-3 text-sm text-zinc-400'>{file.size}</div>
 
-                <div className='col-span-2 text-sm text-zinc-400'>
+                <div className='col-span-5 sm:col-span-4 text-sm text-zinc-400'>
                   <span className='sm:hidden'>{file.modifiedShort}</span>
                   <span className='hidden sm:inline'>{file.modifiedLong}</span>
                 </div>
 
-                <div className='col-span-1 text-right'>
+                <div className='col-span-5 sm:col-span-2 text-right'>
                   {file.type === 'file' ? (
                     <a
                       href={file.href}
