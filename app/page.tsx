@@ -9,7 +9,8 @@ type FileItem = {
   name: string
   href: string
   size: string
-  modified: string
+  modifiedLong: string
+  modifiedShort: string
   type: 'folder' | 'file'
 }
 
@@ -51,12 +52,18 @@ async function getFiles(): Promise<FileItem[]> {
           name: entry.name,
           href: entry.isDirectory() ? '#' : `/download/${encodeURIComponent(entry.name)}`,
           size: entry.isDirectory() ? 'Folder' : formatBytes(stat.size),
-          modified: stat.mtime.toLocaleDateString('bg-BG', {
+          modifiedLong: stat.mtime.toLocaleDateString('bg-BG', {
             year: 'numeric',
             month: 'short',
             day: '2-digit',
           }),
-          type: type,
+
+          modifiedShort: stat.mtime.toLocaleDateString('bg-BG', {
+            year: '2-digit',
+            month: '2-digit',
+            day: '2-digit',
+          }),
+          type,
         }
       }),
   )
@@ -72,17 +79,17 @@ export default async function Home() {
 
   return (
     <main className='min-h-screen bg-zinc-950 text-zinc-100'>
-      <section className='mx-auto max-w-6xl px-6 py-10'>
-        <div className='mb-8 rounded-3xl border border-white/10 bg-white/5 p-8 shadow-2xl'>
+      <section className='px-3 py-5 sm:px-6 sm:py-10'>
+        <div className='overflow-hidden mb-8 rounded-3xl border border-white/10 bg-white/5 p-8 ring-1 ring-white/5'>
           <p className='mb-2 text-sm uppercase tracking-[0.3em] text-zinc-400'>myperfume.bg</p>
           <h1 className='text-4xl font-bold tracking-tight'>Downloads</h1>
-          <p className='mt-3 max-w-2xl text-zinc-400'>Download files directly from our public file area.</p>
+          <p className='mt-3 text-zinc-400'>Download files directly from our public file area.</p>
         </div>
 
-        <div className='overflow-hidden rounded-3xl border border-white/10 bg-white/5 shadow-2xl'>
-          <div className='grid grid-cols-12 border-b border-white/10 px-5 py-3 text-sm text-zinc-400'>
-            <div className='col-span-7'>Name</div>
-            <div className='col-span-2'>Size</div>
+        <div className='overflow-hidden rounded-3xl border border-white/10 bg-white/5 ring-1 ring-white/5'>
+          <div className='grid grid-cols-7 sm:grid-cols-12 border-b border-white/10 px-5 py-3 text-sm text-zinc-400'>
+            <div className='col-span-3 sm:col-span-7'>Name</div>
+            <div className='col-span-1'>Size</div>
             <div className='col-span-2'>Modified</div>
             <div className='col-span-1 text-right'>Action</div>
           </div>
@@ -93,22 +100,25 @@ export default async function Home() {
             files.map(file => (
               <div
                 key={file.name}
-                className='grid grid-cols-12 items-center border-b border-white/5 px-5 py-4 transition hover:bg-white/10'
+                className='grid grid-cols-7 sm:grid-cols-12 items-center border-b border-white/5 px-5 py-4 transition hover:bg-white/10'
               >
-                <div className='col-span-7 flex items-center gap-3 font-medium'>
+                <div className='col-span-3 sm:col-span-7 flex items-center gap-3 font-medium'>
                   <span className='text-2xl'>{fileIcon(file.name, file.type)}</span>
-                  <span className='truncate'>{file.name}</span>
+                  <span className='truncate pr-3'>{file.name}</span>
                 </div>
 
-                <div className='col-span-2 text-sm text-zinc-400'>{file.size}</div>
+                <div className='col-span-1 text-sm text-zinc-400'>{file.size}</div>
 
-                <div className='col-span-2 text-sm text-zinc-400'>{file.modified}</div>
+                <div className='col-span-2 text-sm text-zinc-400'>
+                  <span className='sm:hidden'>{file.modifiedShort}</span>
+                  <span className='hidden sm:inline'>{file.modifiedLong}</span>
+                </div>
 
                 <div className='col-span-1 text-right'>
                   {file.type === 'file' ? (
                     <a
                       href={file.href}
-                      className='rounded-xl bg-zinc-100 px-4 py-2 text-sm font-semibold text-zinc-950 transition hover:bg-white'
+                      className='rounded-xl bg-zinc-100 px-3 py-1.5 sm:px-4 sm:py-2 text-sm font-semibold text-zinc-950 transition hover:bg-white'
                     >
                       Get
                     </a>
