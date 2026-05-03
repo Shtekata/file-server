@@ -1,9 +1,8 @@
 import fs from 'fs/promises'
 import path from 'path'
+import { FILES_DIR } from '@/lib/config'
 
 export const dynamic = 'force-dynamic'
-
-const FILES_DIR = process.env.FILES_DIR || '/srv/files'
 
 type FileItem = {
   name: string
@@ -30,7 +29,9 @@ function fileIcon(name: string, type: 'folder' | 'file') {
   if (['.pdf'].includes(ext)) return '📕'
   if (['.zip', '.rar', '.7z', '.tar', '.gz'].includes(ext)) return '🗜️'
   if (['.xls', '.xlsx', '.csv'].includes(ext)) return '📊'
+  if (['.txt'].includes(ext)) return '📝'
   if (['.doc', '.docx'].includes(ext)) return '📄'
+  if (['.ppt', '.pptx'].includes(ext)) return '📽️'
   if (['.mp4', '.mkv', '.avi', '.mov'].includes(ext)) return '🎬'
   if (['.mp3', '.wav', '.flac'].includes(ext)) return '🎵'
 
@@ -47,6 +48,8 @@ async function getFiles(): Promise<FileItem[]> {
         const fullPath = path.join(FILES_DIR, entry.name)
         const stat = await fs.stat(fullPath)
         const type: 'folder' | 'file' = entry.isDirectory() ? 'folder' : 'file'
+        const d = stat.mtime
+        const modifiedShort = `${String(d.getDate()).padStart(2, '0')}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getFullYear()).slice(-2)}`
 
         return {
           name: entry.name,
@@ -57,14 +60,7 @@ async function getFiles(): Promise<FileItem[]> {
             month: 'short',
             day: '2-digit',
           }),
-
-          modifiedShort: stat.mtime
-            .toLocaleDateString('bg-BG', {
-              year: '2-digit',
-              month: '2-digit',
-              day: '2-digit',
-            })
-            .replace(/\s?г\./, ''),
+          modifiedShort,
           type,
         }
       }),
@@ -72,7 +68,7 @@ async function getFiles(): Promise<FileItem[]> {
 
   return items.sort((a, b) => {
     if (a.type !== b.type) return a.type === 'folder' ? -1 : 1
-    return a.name.localeCompare(b.name)
+    return a.name.localeCompare(b.name, 'bg', { sensitivity: 'base', numeric: true })
   })
 }
 
