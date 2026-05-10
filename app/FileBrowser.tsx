@@ -1,6 +1,7 @@
 'use client'
 
 import { useMemo, useState } from 'react'
+import Link from 'next/link'
 
 export type FileItem = {
   name: string
@@ -21,15 +22,15 @@ function fileIcon(file: FileItem) {
 
   const ext = file.name.split('.').pop()?.toLowerCase() || ''
 
-  if (['.jpg', '.jpeg', '.png', '.webp', '.gif', '.svg'].includes(ext)) return '🖼️'
-  if (['.pdf'].includes(ext)) return '📕'
-  if (['.zip', '.rar', '.7z', '.tar', '.gz'].includes(ext)) return '🗜️'
-  if (['.xls', '.xlsx', '.csv'].includes(ext)) return '📊'
-  if (['.txt'].includes(ext)) return '📝'
-  if (['.doc', '.docx'].includes(ext)) return '📄'
-  if (['.ppt', '.pptx'].includes(ext)) return '📽️'
-  if (['.mp4', '.mkv', '.avi', '.mov'].includes(ext)) return '🎬'
-  if (['.mp3', '.wav', '.flac'].includes(ext)) return '🎵'
+  if (['jpg', 'jpeg', 'png', 'webp', 'gif', 'svg'].includes(ext)) return '🖼️'
+  if (['pdf'].includes(ext)) return '📕'
+  if (['zip', 'rar', '7z', 'tar', 'gz'].includes(ext)) return '🗜️'
+  if (['xls', 'xlsx', 'csv'].includes(ext)) return '📊'
+  if (['txt'].includes(ext)) return '📝'
+  if (['doc', 'docx'].includes(ext)) return '📄'
+  if (['ppt', 'pptx'].includes(ext)) return '📽️'
+  if (['mp4', 'mkv', 'avi', 'mov'].includes(ext)) return '🎬'
+  if (['mp3', 'wav', 'flac'].includes(ext)) return '🎵'
 
   return '📦'
 }
@@ -118,12 +119,12 @@ export default function FileBrowser({
       </div>
 
       {currentPath && (
-        <a
+        <Link
           href={parentPath ? `/?path=${encodeURIComponent(parentPath)}` : '/'}
           className='block border-b border-white/5 px-5 py-4 text-sm text-zinc-300 transition hover:bg-white/10'
         >
           ← Back to parent folder
-        </a>
+        </Link>
       )}
 
       <div className='grid grid-cols-24 border-b border-white/10 px-5 py-3 text-sm text-zinc-400'>
@@ -162,9 +163,9 @@ export default function FileBrowser({
                   Get
                 </a>
               ) : (
-                <a href={file.href} className='text-sm text-zinc-300 hover:text-zinc-100'>
+                <Link href={file.href} className='text-sm text-zinc-300 hover:text-zinc-100'>
                   Open
-                </a>
+                </Link>
               )}
             </div>
           </div>
