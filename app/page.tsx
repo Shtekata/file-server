@@ -2,6 +2,7 @@ import fs from 'fs/promises'
 import path from 'path'
 import { FILES_DIR } from '@/lib/config'
 import FileBrowser, { FileItem } from './FileBrowser'
+import ThemeToggle from './ThemeToggle'
 
 export const dynamic = 'force-dynamic'
 
@@ -78,18 +79,26 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ p
   const parentPath = currentPath.split('/').slice(0, -1).join('/')
 
   return (
-    <main className='min-h-screen bg-zinc-950 text-zinc-100'>
+    <main className='min-h-screen bg-zinc-50 text-zinc-950 transition-colors dark:bg-zinc-950 dark:text-zinc-100'>
       <section className='px-3 py-5 sm:px-6 sm:py-10'>
-        <div className='overflow-hidden mb-4 sm:mb-8 rounded-3xl border border-white/10 bg-white/5 p-8 ring-1 ring-white/5'>
-          <p className='mb-2 text-sm uppercase tracking-[0.3em] text-zinc-400'>myperfume.bg</p>
+        <div className='overflow-hidden rounded-3xl border border-zinc-200 bg-white mb-3 sm:mb-8 p-5 pb-3 sm:p-8 ring-1 ring-zinc-200 dark:border-white/10 dark:bg-white/5 dark:ring-white/5'>
+          <div className='mb-3 flex items-start justify-between gap-4'>
+            <div>
+              <p className='mb-2 text-sm uppercase tracking-[0.3em] text-zinc-500 dark:text-zinc-400'>myperfume.bg</p>
 
-          <h1 className='text-4xl font-bold tracking-tight'>Downloads</h1>
+              <h1 className='text-4xl font-bold tracking-tight'>Downloads</h1>
 
-          <p className='mt-3 text-zinc-400'>Download files directly from our public file area.</p>
+              <p className='mt-3 text-zinc-600 dark:text-zinc-400'>
+                Download files directly from our public file area.
+              </p>
+            </div>
+
+            <ThemeToggle />
+          </div>
 
           {currentPath && (
             <p className='mt-4 text-sm text-zinc-500'>
-              Current folder: <span className='text-zinc-300'>/{currentPath}</span>
+              Current folder: <span className='text-zinc-700 dark:text-zinc-300'>/{currentPath}</span>
             </p>
           )}
         </div>
