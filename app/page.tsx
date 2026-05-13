@@ -86,7 +86,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ p
             <div>
               <p className='mb-2 text-sm uppercase tracking-[0.3em] text-zinc-500 dark:text-zinc-400'>myperfume.bg</p>
 
-              <h1 className='text-4xl font-bold tracking-tight'>Downloads</h1>
+              <h1 className='text-4xl font-bold tracking-tight'>Home Cloud</h1>
 
               <p className='mt-3 text-zinc-600 dark:text-zinc-400'>
                 Download files directly from our public file area.
