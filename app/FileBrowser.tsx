@@ -1,7 +1,8 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
+import Pagination from './Pagination'
 
 export type FileItem = {
   name: string
@@ -16,6 +17,7 @@ export type FileItem = {
 }
 
 type SortKey = 'name' | 'size' | 'modified'
+const PAGE_SIZE = 7
 
 function fileIcon(file: FileItem) {
   if (file.type === 'folder') return '📁'
@@ -47,6 +49,7 @@ export default function FileBrowser({
   const [search, setSearch] = useState('')
   const [sortKey, setSortKey] = useState<SortKey>('name')
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc')
+  const [page, setPage] = useState(1)
 
   const s = search.toLowerCase()
 
@@ -74,6 +77,13 @@ export default function FileBrowser({
     })
   }, [files, search, sortKey, sortDirection])
 
+  const totalPages = Math.max(1, Math.ceil(currentFiles.length / PAGE_SIZE))
+  const pageFiles = currentFiles.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
+
+  useEffect(() => {
+    setPage(1)
+  }, [search, sortKey, sortDirection, currentPath])
+
   function changeSort(nextKey: SortKey) {
     if (sortKey === nextKey) {
       setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc')
@@ -91,7 +101,7 @@ export default function FileBrowser({
           value={search}
           onChange={event => setSearch(event.target.value)}
           placeholder='Search files...'
-          className='w-full rounded-2xl border border-zinc-200 bg-white px-4 py-3 text-sm outline-none ring-zinc-200 transition placeholder:text-zinc-400 focus:ring-4 sm:max-w-sm dark:border-white/10 dark:bg-zinc-950 dark:ring-white/10 dark:placeholder:text-zinc-500'
+          className='w-full rounded-2xl border border-zinc-200 bg-white  px-3 py-2 sm:px-4 sm:py-3 text-sm outline-none ring-zinc-200 transition placeholder:text-zinc-400 focus:ring-4 sm:max-w-sm dark:border-white/10 dark:bg-zinc-950 dark:ring-white/10 dark:placeholder:text-zinc-500'
         />
 
         <div className='flex gap-2 text-sm sm:self-end'>
@@ -134,10 +144,10 @@ export default function FileBrowser({
         <div className='col-span-5 sm:col-span-2 text-center'>Action</div>
       </div>
 
-      {currentFiles.length === 0 ? (
+      {pageFiles.length === 0 ? (
         <div className='px-5 py-10 text-center text-zinc-500 dark:text-zinc-400'>No files found.</div>
       ) : (
-        currentFiles.map(file => (
+        pageFiles.map(file => (
           <div
             key={file.path}
             className='grid grid-cols-24 items-center border-b border-zinc-100 px-5 py-4 transition hover:bg-zinc-100 dark:border-white/5 dark:hover:bg-white/10'
@@ -174,6 +184,12 @@ export default function FileBrowser({
           </div>
         ))
       )}
+      <Pagination
+        page={page}
+        totalPages={totalPages}
+        onPrevious={() => setPage(value => Math.max(1, value - 1))}
+        onNext={() => setPage(value => Math.min(totalPages, value + 1))}
+      />
     </div>
   )
 }
