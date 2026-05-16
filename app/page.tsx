@@ -1,6 +1,6 @@
 import fs from 'fs/promises'
 import path from 'path'
-import { FILES_DIR } from '@/lib/config'
+import { FILES_DIR, USER_FILES_DIR } from '@/lib/config'
 import FileBrowser, { FileItem } from './FileBrowser'
 import ThemeToggle from './ThemeToggle'
 
@@ -17,6 +17,17 @@ function safePath(relativePath: string) {
   const resolved = path.resolve(FILES_DIR, relativePath)
 
   if (!resolved.startsWith(FILES_DIR)) {
+    throw new Error('Invalid path')
+  }
+
+  return resolved
+}
+
+function safeUserPath(userId: string, relativePath: string) {
+  const userRoot = path.resolve(USER_FILES_DIR, userId)
+  const resolved = path.resolve(userRoot, relativePath)
+
+  if (!resolved.startsWith(userRoot)) {
     throw new Error('Invalid path')
   }
 
