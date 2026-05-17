@@ -7,14 +7,6 @@ type Theme = 'light' | 'dark'
 export default function ThemeToggle() {
   const [theme, setTheme] = useState<Theme>('light')
 
-  useEffect(() => {
-    const saved = localStorage.getItem('theme') as Theme | null
-    const nextTheme = saved || 'light'
-
-    setTheme(nextTheme)
-    document.documentElement.classList.toggle('dark', nextTheme === 'dark')
-  }, [])
-
   function toggleTheme() {
     const nextTheme = theme === 'light' ? 'dark' : 'light'
 
