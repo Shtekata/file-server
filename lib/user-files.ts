@@ -15,7 +15,7 @@ export async function ensureUserRoot(userId: string) {
   return userRoot
 }
 
-export async function safeUserPath(userId: string, relativePath: string) {
+export default async function safeUserPath(userId: string, relativePath: string) {
   const userRoot = await ensureUserRoot(userId)
   const resolved = path.resolve(userRoot, relativePath)
 
