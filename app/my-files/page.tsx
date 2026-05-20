@@ -1,13 +1,16 @@
-import FileBrowser from '../Components/CentralPanel'
-import ThemeToggle from '../Components/ThemeToggle'
 import { getFiles } from '@/lib/utilities'
 import { getCurrentUser } from '@/lib/session'
-import { redirect } from 'next/navigation'
+import PanelWhole from '@/Components/PanelWhole'
 
 export const dynamic = 'force-dynamic'
 
-export default async function MyFilesPage({ searchParams }: { searchParams: Promise<{ path?: string }> }) {
-  const user = await getCurrentUser()
+export default async function Home({ searchParams }: { searchParams: Promise<{ path?: string }> }) {
+  const params = await searchParams
+  const currentPath = params.path ?? ''
 
-  if (!user) redirect('/')
+  const user = await getCurrentUser()
+  const files = await getFiles({ userId: '', currentPath })
+  // const files = await getFiles({ userId: user?.id || '', currentPath })
+
+  return <PanelWhole user={user?.username || ''} currentPath={currentPath} files={files} />
 }

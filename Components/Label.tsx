@@ -1,4 +1,4 @@
-export default function Label({ user }: { user: string }) {
+export default function Label({ user }: { user: string | null }) {
   const home = !user
   return (
     <div>

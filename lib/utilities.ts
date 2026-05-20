@@ -1,6 +1,6 @@
 import fs from 'fs/promises'
 import path from 'path'
-import { FileItem } from '@/app/Components/CentralPanel'
+import { FileItem } from '@/Components/PanelCentral'
 import safePath from '@/lib/files-common'
 import safeUserPath from '@/lib/files-users'
 
@@ -18,7 +18,13 @@ function encodeDownloadPath(relativePath: string) {
     .join('/')
 }
 
-export async function getFiles({ userId, currentPath }: { userId: string; currentPath: string }): Promise<FileItem[]> {
+export async function getFiles({
+  userId,
+  currentPath,
+}: {
+  userId: string | null
+  currentPath: string
+}): Promise<FileItem[]> {
   const home = !userId
   const directory = home ? safePath(currentPath) : await safeUserPath(userId, currentPath)
   const entries = await fs.readdir(directory, { withFileTypes: true })

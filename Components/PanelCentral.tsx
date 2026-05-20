@@ -37,7 +37,7 @@ function fileIcon(file: FileItem) {
   return '📦'
 }
 
-export default function FileBrowser({
+export default function PanelCentral({
   files,
   currentPath,
   parentPath,
