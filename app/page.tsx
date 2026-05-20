@@ -8,5 +8,5 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ p
   const currentPath = params.path ?? ''
   const files = await getFiles({ userId: null, currentPath })
 
-  return <PanelWhole user={null} currentPath={currentPath} files={files} />
+  return <PanelWhole user={null} currentPath={currentPath} basePath='/' files={files} />
 }

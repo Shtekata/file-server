@@ -37,7 +37,15 @@ function fileIcon(file: FileItem) {
   return '📦'
 }
 
-export default function PanelCentral({ files, currentPath }: { files: FileItem[]; currentPath: string }) {
+export default function PanelCentral({
+  files,
+  currentPath,
+  basePath,
+}: {
+  files: FileItem[]
+  currentPath: string
+  basePath: string
+}) {
   const [search, setSearch] = useState('')
   const [sortKey, setSortKey] = useState<SortKey>('name')
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc')
@@ -123,7 +131,7 @@ export default function PanelCentral({ files, currentPath }: { files: FileItem[]
 
       {currentPath && (
         <Link
-          href={parentPath ? `/?path=${encodeURIComponent(parentPath)}` : '/'}
+          href={parentPath ? `${basePath}?path=${encodeURIComponent(parentPath)}` : basePath}
           className='block border-b border-zinc-100 px-5 py-4 text-sm text-zinc-600 transition hover:bg-zinc-100 dark:border-white/5 dark:text-zinc-300 dark:hover:bg-white/10'
         >
           ← Back to parent folder
