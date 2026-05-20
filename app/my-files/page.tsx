@@ -1,16 +1,17 @@
+import { redirect } from 'next/navigation'
 import { getFiles } from '@/lib/utilities'
 import { getCurrentUser } from '@/lib/session'
 import PanelWhole from '@/Components/PanelWhole'
 
 export const dynamic = 'force-dynamic'
 
-export default async function Home({ searchParams }: { searchParams: Promise<{ path?: string }> }) {
+export default async function MyFiles({ searchParams }: { searchParams: Promise<{ path?: string }> }) {
+  const user = await getCurrentUser()
+  if (!user) redirect('/login')
+
   const params = await searchParams
   const currentPath = params.path ?? ''
+  const files = await getFiles({ userId: user?.id || null, currentPath })
 
-  const user = await getCurrentUser()
-  const files = await getFiles({ userId: '', currentPath })
-  // const files = await getFiles({ userId: user?.id || '', currentPath })
-
-  return <PanelWhole user={user?.username || ''} currentPath={currentPath} files={files} />
+  return <PanelWhole user={user?.username || null} currentPath={currentPath} files={files} />
 }

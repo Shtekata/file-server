@@ -1,5 +1,4 @@
 import { getFiles } from '@/lib/utilities'
-import { getCurrentUser } from '@/lib/session'
 import PanelWhole from '../Components/PanelWhole'
 
 export const dynamic = 'force-dynamic'

@@ -37,20 +37,13 @@ function fileIcon(file: FileItem) {
   return '📦'
 }
 
-export default function PanelCentral({
-  files,
-  currentPath,
-  parentPath,
-}: {
-  files: FileItem[]
-  currentPath: string
-  parentPath: string
-}) {
+export default function PanelCentral({ files, currentPath }: { files: FileItem[]; currentPath: string }) {
   const [search, setSearch] = useState('')
   const [sortKey, setSortKey] = useState<SortKey>('name')
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc')
   const [page, setPage] = useState(1)
 
+  const parentPath = currentPath.split('/').slice(0, -1).join('/')
   const s = search.toLowerCase()
 
   const currentFiles = useMemo(() => {
