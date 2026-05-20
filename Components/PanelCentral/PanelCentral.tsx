@@ -2,7 +2,8 @@
 
 import { useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
-import Pagination from './Pagination'
+import Pagination from '../Pagination'
+import SearchSort from './SearchSort'
 
 export type FileItem = {
   name: string
@@ -96,39 +97,7 @@ export default function PanelCentral({
 
   return (
     <div className='overflow-hidden rounded-3xl border border-zinc-200 bg-white ring-1 ring-zinc-200 dark:border-white/10 dark:bg-white/5 dark:ring-white/5'>
-      <div className='flex flex-col gap-4 border-b border-zinc-200 p-5 sm:flex-row sm:items-center sm:justify-between dark:border-white/10'>
-        <input
-          id='search'
-          value={search}
-          onChange={event => setSearch(event.target.value)}
-          placeholder='Search files...'
-          className='w-full rounded-2xl border border-zinc-200 bg-white  px-3 py-2 sm:px-4 sm:py-3 text-sm outline-none ring-zinc-200 transition placeholder:text-zinc-400 focus:ring-4 sm:max-w-sm dark:border-white/10 dark:bg-zinc-950 dark:ring-white/10 dark:placeholder:text-zinc-500'
-        />
-
-        <div className='flex gap-2 text-sm sm:self-end'>
-          <button
-            onClick={() => changeSort('name')}
-            className='rounded-xl border border-zinc-200 px-3 py-2 hover:bg-zinc-100 dark:border-white/10 dark:hover:bg-white/10'
-          >
-            Name
-          </button>
-
-          <button
-            onClick={() => changeSort('size')}
-            className='rounded-xl border border-zinc-200 px-3 py-2 hover:bg-zinc-100 dark:border-white/10 dark:hover:bg-white/10'
-          >
-            Size
-          </button>
-
-          <button
-            onClick={() => changeSort('modified')}
-            className='rounded-xl border border-zinc-200 px-3 py-2 hover:bg-zinc-100 dark:border-white/10 dark:hover:bg-white/10'
-          >
-            Date
-          </button>
-        </div>
-      </div>
-
+      <SearchSort search={search} setSearch={setSearch} changeSort={changeSort} />
       {currentPath && (
         <Link
           href={parentPath ? `${basePath}?path=${encodeURIComponent(parentPath)}` : basePath}

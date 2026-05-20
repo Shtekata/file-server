@@ -1,5 +1,5 @@
-import PanelTop from './PanelTop'
-import PanelCentral from './PanelCentral'
+import PanelTop from './PanelTop/PanelTop'
+import PanelCentral from './PanelCentral/PanelCentral'
 
 type PanelWhole = {
   user: string | null

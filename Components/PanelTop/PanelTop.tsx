@@ -1,5 +1,5 @@
 import Label from './Label'
-import ThemeToggle from './ThemeToggle'
+import ThemeToggle from '../Theme/ThemeToggle'
 
 type TopPanel = {
   user: string | null
