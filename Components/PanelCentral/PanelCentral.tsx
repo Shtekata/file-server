@@ -5,6 +5,8 @@ import Link from 'next/link'
 import Pagination from '../Pagination'
 import SearchSort from './SearchSort'
 import { fileIcon } from '@/lib/utilities-browser'
+import BackToPF from './BackToPF'
+import TableHeader from './TableHeader'
 
 export type FileItem = {
   name: string
@@ -20,24 +22,6 @@ export type FileItem = {
 
 type SortKey = 'name' | 'size' | 'modified'
 const PAGE_SIZE = 7
-
-// function fileIcon(file: FileItem) {
-//   if (file.type === 'folder') return '📁'
-
-//   const ext = file.name.split('.').pop()?.toLowerCase() || ''
-
-//   if (['jpg', 'jpeg', 'png', 'webp', 'gif', 'svg'].includes(ext)) return '🖼️'
-//   if (['pdf'].includes(ext)) return '📕'
-//   if (['zip', 'rar', '7z', 'tar', 'gz'].includes(ext)) return '🗜️'
-//   if (['xls', 'xlsx', 'csv'].includes(ext)) return '📊'
-//   if (['txt'].includes(ext)) return '📝'
-//   if (['doc', 'docx'].includes(ext)) return '📄'
-//   if (['ppt', 'pptx'].includes(ext)) return '📽️'
-//   if (['mp4', 'mkv', 'avi', 'mov'].includes(ext)) return '🎬'
-//   if (['mp3', 'wav', 'flac'].includes(ext)) return '🎵'
-
-//   return '📦'
-// }
 
 export default function PanelCentral({
   files,
@@ -58,24 +42,13 @@ export default function PanelCentral({
 
   const currentFiles = useMemo(() => {
     const filtered = files.filter(file => file.name.toLowerCase().includes(s))
-
     return filtered.sort((a, b) => {
       if (a.type !== b.type) return a.type === 'folder' ? -1 : 1
-
       let result = 0
 
-      if (sortKey === 'name') {
-        result = a.name.localeCompare(b.name, 'bg', { sensitivity: 'base', numeric: true })
-      }
-
-      if (sortKey === 'size') {
-        result = a.sizeBytes - b.sizeBytes
-      }
-
-      if (sortKey === 'modified') {
-        result = a.modifiedTime - b.modifiedTime
-      }
-
+      if (sortKey === 'name') result = a.name.localeCompare(b.name, 'bg', { sensitivity: 'base', numeric: true })
+      if (sortKey === 'size') result = a.sizeBytes - b.sizeBytes
+      if (sortKey === 'modified') result = a.modifiedTime - b.modifiedTime
       return sortDirection === 'asc' ? result : -result
     })
   }, [files, search, sortKey, sortDirection])
@@ -99,22 +72,8 @@ export default function PanelCentral({
   return (
     <div className='overflow-hidden rounded-3xl border border-zinc-200 bg-white ring-1 ring-zinc-200 dark:border-white/10 dark:bg-white/5 dark:ring-white/5'>
       <SearchSort search={search} setSearch={setSearch} changeSort={changeSort} />
-      {currentPath && (
-        <Link
-          href={parentPath ? `${basePath}?path=${encodeURIComponent(parentPath)}` : basePath}
-          className='block border-b border-zinc-100 px-5 py-4 text-sm text-zinc-600 transition hover:bg-zinc-100 dark:border-white/5 dark:text-zinc-300 dark:hover:bg-white/10'
-        >
-          ← Back to parent folder
-        </Link>
-      )}
-
-      <div className='grid grid-cols-24 border-b border-zinc-200 px-5 py-3 text-sm text-zinc-500 dark:border-white/10 dark:text-zinc-400'>
-        <div className='col-span-9 sm:col-span-15'>Name</div>
-        <div className='col-span-5 sm:col-span-3'>Size</div>
-        <div className='col-span-5 sm:col-span-4'>Modified</div>
-        <div className='col-span-5 sm:col-span-2 text-center'>Action</div>
-      </div>
-
+      {currentPath && <BackToPF parentPath={parentPath} basePath={basePath} />}
+      <TableHeader />
       {pageFiles.length === 0 ? (
         <div className='px-5 py-10 text-center text-zinc-500 dark:text-zinc-400'>No files found.</div>
       ) : (
