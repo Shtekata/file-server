@@ -1,9 +1,7 @@
-import { FileItem } from '@/Components/PanelCentral/PanelCentral'
+export function fileIcon({ type, name }: { type: 'folder' | 'file'; name: string }) {
+  if (type === 'folder') return '📁'
 
-export function fileIcon(file: FileItem) {
-  if (file.type === 'folder') return '📁'
-
-  const ext = file.name.split('.').pop()?.toLowerCase() || ''
+  const ext = name.split('.').pop()?.toLowerCase() || ''
 
   if (['jpg', 'jpeg', 'png', 'webp', 'gif', 'svg'].includes(ext)) return '🖼️'
   if (['pdf'].includes(ext)) return '📕'

@@ -1,12 +1,15 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
-import Link from 'next/link'
 import Pagination from '../Pagination'
 import SearchSort from './SearchSort'
-import { fileIcon } from '@/lib/utilities-browser'
 import BackToPF from './BackToPF'
 import TableHeader from './TableHeader'
+import ButtonOpenGet from './OneLevelDown/ButtonOpenGet'
+import SectorModified from './OneLevelDown/SectorModified'
+import SectorSize from './OneLevelDown/SectorSize'
+import SectorFile from './OneLevelDown/SectorFile'
+import TableItem from './TableItem'
 
 export type FileItem = {
   name: string
@@ -77,42 +80,7 @@ export default function PanelCentral({
       {pageFiles.length === 0 ? (
         <div className='px-5 py-10 text-center text-zinc-500 dark:text-zinc-400'>No files found.</div>
       ) : (
-        pageFiles.map(file => (
-          <div
-            key={file.path}
-            className='grid grid-cols-24 items-center border-b border-zinc-100 px-5 py-4 transition hover:bg-zinc-100 dark:border-white/5 dark:hover:bg-white/10'
-          >
-            <div className='col-span-9 sm:col-span-15 flex items-center gap-3 font-medium'>
-              <span className='text-2xl'>{fileIcon(file)}</span>
-              <span className='truncate pr-3'>{file.name}</span>
-            </div>
-
-            <div className='col-span-5 text-sm text-zinc-500 sm:col-span-3 dark:text-zinc-400'>{file.size}</div>
-
-            <div className='col-span-5 text-sm text-zinc-500 sm:col-span-4 dark:text-zinc-400'>
-              <span className='sm:hidden'>{file.modifiedShort}</span>
-              <span className='hidden sm:inline'>{file.modifiedLong}</span>
-            </div>
-
-            <div className='col-span-5 sm:col-span-2 text-center'>
-              {file.type === 'file' ? (
-                <a
-                  href={file.href}
-                  className='rounded-xl bg-zinc-900 px-3 py-1.5 text-sm font-medium text-white transition hover:bg-zinc-700 sm:px-4 sm:py-2 dark:font-semibold dark:bg-zinc-100 dark:text-zinc-950 dark:hover:bg-white'
-                >
-                  Get
-                </a>
-              ) : (
-                <Link
-                  href={file.href}
-                  className='text-sm text-zinc-700 hover:text-zinc-950 dark:text-zinc-300 dark:hover:text-zinc-100'
-                >
-                  Open
-                </Link>
-              )}
-            </div>
-          </div>
-        ))
+        pageFiles.map(file => <TableItem file={file} />)
       )}
       <Pagination
         page={page}
