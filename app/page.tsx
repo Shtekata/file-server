@@ -1,4 +1,4 @@
-import { getFiles } from '@/lib/utilities'
+import { getFiles } from '@/lib/utilities-server'
 import PanelWhole from '../Components/PanelWhole'
 
 export const dynamic = 'force-dynamic'

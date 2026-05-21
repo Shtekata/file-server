@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
 import Pagination from '../Pagination'
 import SearchSort from './SearchSort'
+import { fileIcon } from '@/lib/utilities-browser'
 
 export type FileItem = {
   name: string
@@ -20,23 +21,23 @@ export type FileItem = {
 type SortKey = 'name' | 'size' | 'modified'
 const PAGE_SIZE = 7
 
-function fileIcon(file: FileItem) {
-  if (file.type === 'folder') return '📁'
+// function fileIcon(file: FileItem) {
+//   if (file.type === 'folder') return '📁'
 
-  const ext = file.name.split('.').pop()?.toLowerCase() || ''
+//   const ext = file.name.split('.').pop()?.toLowerCase() || ''
 
-  if (['jpg', 'jpeg', 'png', 'webp', 'gif', 'svg'].includes(ext)) return '🖼️'
-  if (['pdf'].includes(ext)) return '📕'
-  if (['zip', 'rar', '7z', 'tar', 'gz'].includes(ext)) return '🗜️'
-  if (['xls', 'xlsx', 'csv'].includes(ext)) return '📊'
-  if (['txt'].includes(ext)) return '📝'
-  if (['doc', 'docx'].includes(ext)) return '📄'
-  if (['ppt', 'pptx'].includes(ext)) return '📽️'
-  if (['mp4', 'mkv', 'avi', 'mov'].includes(ext)) return '🎬'
-  if (['mp3', 'wav', 'flac'].includes(ext)) return '🎵'
+//   if (['jpg', 'jpeg', 'png', 'webp', 'gif', 'svg'].includes(ext)) return '🖼️'
+//   if (['pdf'].includes(ext)) return '📕'
+//   if (['zip', 'rar', '7z', 'tar', 'gz'].includes(ext)) return '🗜️'
+//   if (['xls', 'xlsx', 'csv'].includes(ext)) return '📊'
+//   if (['txt'].includes(ext)) return '📝'
+//   if (['doc', 'docx'].includes(ext)) return '📄'
+//   if (['ppt', 'pptx'].includes(ext)) return '📽️'
+//   if (['mp4', 'mkv', 'avi', 'mov'].includes(ext)) return '🎬'
+//   if (['mp3', 'wav', 'flac'].includes(ext)) return '🎵'
 
-  return '📦'
-}
+//   return '📦'
+// }
 
 export default function PanelCentral({
   files,
