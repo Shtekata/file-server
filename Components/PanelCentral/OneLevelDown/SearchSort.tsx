@@ -1,5 +1,5 @@
-import SortButtons from './OneLevelDown/SortButtons'
-import SearchBar from './OneLevelDown/SearchBar'
+import SortButtons from '../TwoLevelsDown/SortButtons'
+import SearchBar from '../TwoLevelsDown/SearchBar'
 
 type SearchSort = {
   search: string

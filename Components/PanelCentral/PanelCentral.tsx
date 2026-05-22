@@ -1,15 +1,7 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
-import Pagination from '../Pagination'
-import SearchSort from './SearchSort'
-import BackToPF from './BackToPF'
-import TableHeader from './TableHeader'
-import ButtonOpenGet from './OneLevelDown/ButtonOpenGet'
-import SectorModified from './OneLevelDown/SectorModified'
-import SectorSize from './OneLevelDown/SectorSize'
-import SectorFile from './OneLevelDown/SectorFile'
-import TableItem from './TableItem'
+import PanelCentralComponent from './PanelCenterComponent'
 
 export type FileItem = {
   name: string
@@ -73,21 +65,17 @@ export default function PanelCentral({
   }
 
   return (
-    <div className='overflow-hidden rounded-3xl border border-zinc-200 bg-white ring-1 ring-zinc-200 dark:border-white/10 dark:bg-white/5 dark:ring-white/5'>
-      <SearchSort search={search} setSearch={setSearch} changeSort={changeSort} />
-      {currentPath && <BackToPF parentPath={parentPath} basePath={basePath} />}
-      <TableHeader />
-      {pageFiles.length === 0 ? (
-        <div className='px-5 py-10 text-center text-zinc-500 dark:text-zinc-400'>No files found.</div>
-      ) : (
-        pageFiles.map(file => <TableItem file={file} />)
-      )}
-      <Pagination
-        page={page}
-        totalPages={totalPages}
-        onPrevious={() => setPage(value => Math.max(1, value - 1))}
-        onNext={() => setPage(value => Math.min(totalPages, value + 1))}
-      />
-    </div>
+    <PanelCentralComponent
+      search={search}
+      setSearch={setSearch}
+      changeSort={changeSort}
+      setPage={setPage}
+      currentPath={currentPath}
+      parentPath={parentPath}
+      basePath={basePath}
+      pageFiles={pageFiles}
+      page={page}
+      totalPages={totalPages}
+    />
   )
 }
