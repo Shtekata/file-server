@@ -1,6 +1,7 @@
 import Link from 'next/link'
+import { ButtonOpenGetProps } from '@/lib/types'
 
-export default function ButtonOpenGet({ type, href }: { type: 'file' | 'folder'; href: string }) {
+export default function ButtonOpenGet({ type, href }: ButtonOpenGetProps) {
   return (
     <div className='col-span-5 sm:col-span-2 text-center'>
       {type === 'file' ? (

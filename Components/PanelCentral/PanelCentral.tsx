@@ -1,32 +1,11 @@
 'use client'
 
+import { PAGE_SIZE } from '@/lib/constants'
+import { SortKey, PanelCentralProps } from '@/lib/types'
 import { useEffect, useMemo, useState } from 'react'
 import PanelCentralComponent from './PanelCenterComponent'
 
-export type FileItem = {
-  name: string
-  path: string
-  href: string
-  size: string
-  sizeBytes: number
-  modifiedLong: string
-  modifiedShort: string
-  modifiedTime: number
-  type: 'folder' | 'file'
-}
-
-type SortKey = 'name' | 'size' | 'modified'
-const PAGE_SIZE = 7
-
-export default function PanelCentral({
-  files,
-  currentPath,
-  basePath,
-}: {
-  files: FileItem[]
-  currentPath: string
-  basePath: string
-}) {
+export default function PanelCentral({ files, currentPath, basePath }: PanelCentralProps) {
   const [search, setSearch] = useState('')
   const [sortKey, setSortKey] = useState<SortKey>('name')
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc')

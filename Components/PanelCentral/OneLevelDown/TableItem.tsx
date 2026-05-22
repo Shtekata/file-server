@@ -1,4 +1,4 @@
-import { FileItem } from '../PanelCentral'
+import { FileItem } from '@/lib/types'
 import SectorFile from '../TwoLevelsDown/SectorFile'
 import SectorSize from '../TwoLevelsDown/SectorSize'
 import SectorModified from '../TwoLevelsDown/SectorModified'

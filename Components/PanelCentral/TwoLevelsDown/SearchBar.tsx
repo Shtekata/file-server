@@ -1,9 +1,6 @@
-type SearchBar = {
-  search: string
-  setSearch: (value: string) => void
-}
+import { SearchBarProps } from '@/lib/types'
 
-export default function SearchBar({ search, setSearch }: SearchBar) {
+export default function SearchBar({ search, setSearch }: SearchBarProps) {
   return (
     <input
       id='search'

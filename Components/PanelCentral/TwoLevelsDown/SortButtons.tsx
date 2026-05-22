@@ -1,8 +1,6 @@
-type SortButtons = {
-  changeSort: (value: 'name' | 'size' | 'modified') => void
-}
+import { SortButtonsProps } from '@/lib/types'
 
-export default function SortButtons({ changeSort }: SortButtons) {
+export default function SortButtons({ changeSort }: SortButtonsProps) {
   return (
     <div className='flex gap-2 text-sm sm:self-end'>
       <button

@@ -1,6 +1,7 @@
+import { BackToPFProps } from '@/lib/types'
 import Link from 'next/link'
 
-export default function BackToPF({ parentPath, basePath }: { parentPath: string; basePath: string }) {
+export default function BackToPF({ parentPath, basePath }: BackToPFProps) {
   return (
     <Link
       href={parentPath ? `${basePath}?path=${encodeURIComponent(parentPath)}` : basePath}
