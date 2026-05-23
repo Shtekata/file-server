@@ -1,6 +1,6 @@
 import fs from 'fs/promises'
 import path from 'path'
-import { FileItem } from '@/Components/PanelCentral/PanelCentral'
+import { FileItem } from '@/lib/types'
 import safePath from '@/lib/files-common'
 import safeUserPath from '@/lib/files-users'
 

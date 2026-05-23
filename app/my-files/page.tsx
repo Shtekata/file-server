@@ -1,5 +1,5 @@
 import { redirect } from 'next/navigation'
-import { getFiles } from '@/lib/utilities-server'
+import { getFiles } from '@/utils/utils-server'
 import { getCurrentUser } from '@/lib/session'
 import PanelWhole from '@/Components/PanelWhole'
 

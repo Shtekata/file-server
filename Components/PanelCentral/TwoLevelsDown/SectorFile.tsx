@@ -1,5 +1,5 @@
 import { SectorFileProps } from '@/lib/types'
-import { fileIcon } from '@/lib/utilities-browser'
+import { fileIcon } from '@/utils/utils-browser'
 
 export default function SectorFile({ type, name }: SectorFileProps) {
   return (
