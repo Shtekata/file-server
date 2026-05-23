@@ -13,8 +13,8 @@ export default function PanelTop({ user, currentPath }: PanelTopProps) {
         <div className='flex flex-col sm:grid grid-cols-2 gap-2'>
           <ThemeToggle />
           <ButtonLogin />
-          <ButtonRegister />
           <ButtonLogout />
+          <ButtonRegister />
         </div>
       </div>
 
