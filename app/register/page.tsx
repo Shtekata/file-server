@@ -85,6 +85,13 @@ export default function RegisterPage() {
             Login
           </Link>
         </p>
+
+        <p className='mt-4 text-center text-sm text-zinc-500 dark:text-zinc-400'>
+          Back to home{' '}
+          <Link href='/' className='text-zinc-900 underline dark:text-zinc-100'>
+            Home
+          </Link>
+        </p>
       </form>
     </main>
   )

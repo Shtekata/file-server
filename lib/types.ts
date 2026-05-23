@@ -1,3 +1,5 @@
+export type Theme = 'light' | 'dark'
+
 export type SortKey = 'name' | 'size' | 'modified'
 
 export type FileItem = {
@@ -21,6 +23,16 @@ export type BackToPFProps = {
   basePath: string
 }
 
+export type ButtonThemeProps = {
+  theme: 'light' | 'dark'
+  onClick: () => void
+}
+
+export type ButtonLinkProps = {
+  text: string
+  href: string
+}
+
 export type ButtonOpenGetProps = {
   type: 'file' | 'folder'
   href: string
@@ -29,6 +41,11 @@ export type ButtonOpenGetProps = {
 export type SectorFileProps = {
   type: 'file' | 'folder'
   name: string
+}
+
+export type PanelTopProps = {
+  user: string | null
+  currentPath: string
 }
 
 export type SectorModifiedProps = {

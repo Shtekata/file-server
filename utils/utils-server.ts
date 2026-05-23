@@ -1,8 +1,8 @@
 import fs from 'fs/promises'
 import path from 'path'
 import { FileItem } from '@/lib/types'
-import safePath from '@/lib/files-common'
-import safeUserPath from '@/lib/files-users'
+import safePath from '@/lib/safe-path'
+import safeUserPath from '@/lib/safe-user-path'
 
 function formatBytes(bytes: number) {
   if (bytes === 0) return '0 B'
