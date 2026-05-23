@@ -28,6 +28,12 @@ export type ButtonThemeProps = {
   onClick: () => void
 }
 
+export type ButtonFuncProps = {
+  text: string
+  type?: 'button' | 'submit'
+  onClick?: () => void
+}
+
 export type ButtonLinkProps = {
   text: string
   href: string

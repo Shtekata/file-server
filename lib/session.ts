@@ -1,6 +1,9 @@
+'use server'
+
 import { cookies } from 'next/headers'
 import { jwtVerify, SignJWT } from 'jose'
 import type { User } from './users'
+import { redirect } from 'next/navigation'
 
 const SESSION_COOKIE = 'file-server-session'
 
@@ -33,6 +36,7 @@ export async function createSession(user: User) {
 export async function destroySession() {
   const cookieStore = await cookies()
   cookieStore.delete(SESSION_COOKIE)
+  redirect('/')
 }
 
 export async function getCurrentUser(): Promise<User | null> {
