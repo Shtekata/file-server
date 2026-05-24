@@ -3,6 +3,8 @@ import path from 'path'
 import { FileItem } from '@/lib/types'
 import safePath from '@/lib/safe-path'
 import safeUserPath from '@/lib/safe-user-path'
+import { notFound } from 'next/dist/client/components/navigation'
+import { Dirent } from 'fs'
 
 function formatBytes(bytes: number) {
   if (bytes === 0) return '0 B'
@@ -25,9 +27,18 @@ export async function getFiles({
   userId: string | null
   currentPath: string
 }): Promise<FileItem[]> {
+  let entries: Dirent[]
   const home = !userId
   const directory = home ? safePath(currentPath) : await safeUserPath(userId, currentPath)
-  const entries = await fs.readdir(directory, { withFileTypes: true })
+
+  try {
+    const stat = await fs.stat(directory)
+    if (!stat.isDirectory()) notFound()
+    entries = await fs.readdir(directory, { withFileTypes: true })
+  } catch (err: any) {
+    if (err.code === 'ENOENT' || err.code === 'ENOTDIR') notFound()
+    throw err
+  }
 
   const items = await Promise.all(
     entries

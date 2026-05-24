@@ -1,4 +1,4 @@
-export default function Label({ user }: { user: string | null }) {
+export default function Label({ user, currentPath }: { user: string | null; currentPath: string }) {
   const home = !user
   return (
     <div>
@@ -12,6 +12,9 @@ export default function Label({ user }: { user: string | null }) {
         {home
           ? 'Download files directly from our public file area.'
           : 'Upload, download and manage your private files.'}
+      </p>
+      <p className='mt-4 text-sm text-zinc-500'>
+        Current folder: <span className='text-zinc-700 dark:text-zinc-300'>/{currentPath}</span>
       </p>
     </div>
   )
