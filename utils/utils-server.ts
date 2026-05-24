@@ -44,7 +44,8 @@ export async function getFiles({
     entries
       .filter(entry => !entry.name.startsWith('.'))
       .map(async entry => {
-        const partPath = home ? 'FILES_DIR' : `USER_FILES_DIR/${userId}`
+        const partPathRoute = home ? '' : 'my-files'
+        const partPathDownload = home ? 'FILES_DIR' : `USER_FILES_DIR/${userId}`
         const relativePath = path.posix.join(currentPath, entry.name)
         const fullPath = home ? safePath(relativePath) : await safeUserPath(userId, relativePath)
         const stat = await fs.stat(fullPath)
@@ -59,8 +60,8 @@ export async function getFiles({
           path: relativePath,
           href:
             type === 'folder'
-              ? `/?path=${encodeURIComponent(relativePath)}`
-              : `/download/${partPath}/${encodeDownloadPath(relativePath)}`,
+              ? `/${partPathRoute}?path=${encodeURIComponent(relativePath)}`
+              : `/download/${partPathDownload}/${encodeDownloadPath(relativePath)}`,
           size: type === 'folder' ? 'Folder' : formatBytes(stat.size),
           sizeBytes: type === 'folder' ? 0 : stat.size,
           modifiedLong: d.toLocaleDateString('bg-BG', {
