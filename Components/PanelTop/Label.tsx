@@ -1,7 +1,7 @@
 export default function Label({ user, currentPath }: { user: string | null; currentPath: string }) {
   const home = !user
   return (
-    <div>
+    <div className='min-w-0'>
       <p className='mb-2 text-sm uppercase tracking-[0.3em] text-zinc-500 dark:text-zinc-400'>
         {home ? 'myperfume.bg' : 'My Files'}
       </p>
@@ -14,7 +14,7 @@ export default function Label({ user, currentPath }: { user: string | null; curr
           : 'Upload, download and manage your private files.'}
       </p>
       <p className='mt-4 text-sm text-zinc-500'>
-        Current folder: <span className='text-zinc-700 dark:text-zinc-300'>/{currentPath}</span>
+        Current folder: <span className='break-all text-zinc-700 dark:text-zinc-300'>/{currentPath}</span>
       </p>
     </div>
   )
