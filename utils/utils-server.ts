@@ -45,7 +45,7 @@ export async function getFiles({
       .map(async entry => {
         const relativePath = path.posix.join(currentPath, entry.name)
         const partPathRoute = home ? '' : 'my-files'
-        const partPathDownload = home ? `/all-downloads/${relativePath}` : `/my-downloads/${relativePath}`
+        const partPathDownload = home ? `/downloads-common/${relativePath}` : `/downloads-users/${relativePath}`
         const fullPath = home ? safePath(relativePath) : await safeUserPath(userId, relativePath)
         const stat = await fs.stat(fullPath)
 

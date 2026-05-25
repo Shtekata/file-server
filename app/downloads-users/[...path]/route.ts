@@ -26,8 +26,9 @@ export async function GET(_request: Request, { params }: { params: Promise<{ pat
   const fileName = pathParts.at(-1) || 'download'
 
   if (process.env.NODE_ENV === 'development') {
-    const fileHandle = await fs.open(filePath).then(nodeStream => nodeStream.createReadStream())
-    const webStream = Readable.toWeb(fileHandle) as ReadableStream
+    const fileHandle = await fs.open(filePath)
+    const nodeStream = fileHandle.createReadStream()
+    const webStream = Readable.toWeb(nodeStream) as ReadableStream
     return new NextResponse(webStream, {
       headers: {
         'Content-Type': 'application/octet-stream',
