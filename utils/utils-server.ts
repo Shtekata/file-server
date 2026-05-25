@@ -45,8 +45,9 @@ export async function getFiles({
       .filter(entry => !entry.name.startsWith('.'))
       .map(async entry => {
         const relativePath = path.posix.join(currentPath, entry.name)
+        const encodedPath = encodeDownloadPath(relativePath)
         const partPathRoute = home ? '' : 'my-files'
-        const partPathDownload = home ? `/downloads-common/${relativePath}` : `/downloads-users/${relativePath}`
+        const partPathDownload = home ? `/downloads-common/${encodedPath}` : `/downloads-users/${encodedPath}`
         const fullPath = home ? safePath(relativePath) : await safeUserPath(userId, relativePath)
         const stat = await fs.stat(fullPath)
 
