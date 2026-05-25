@@ -13,5 +13,13 @@ export default async function MyFiles({ searchParams }: { searchParams: Promise<
   const currentPath = params.path ?? ''
   const files = await getFiles({ userId: user?.id || null, currentPath })
 
-  return <PanelWhole user={user?.username || null} currentPath={currentPath} basePath='/my-files' files={files} />
+  return (
+    <PanelWhole
+      userId={user.id}
+      username={user.username}
+      currentPath={currentPath}
+      basePath='/my-files'
+      files={files}
+    />
+  )
 }

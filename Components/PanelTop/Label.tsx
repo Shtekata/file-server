@@ -1,12 +1,14 @@
-export default function Label({ user, currentPath }: { user: string | null; currentPath: string }) {
-  const home = !user
+import { PanelTopProps } from '@/lib/types'
+
+export default function Label({ username, currentPath }: PanelTopProps) {
+  const home = !username
   return (
     <div className='min-w-0'>
       <p className='mb-2 text-sm uppercase tracking-[0.3em] text-zinc-500 dark:text-zinc-400'>
         {home ? 'myperfume.bg' : 'My Files'}
       </p>
 
-      <h1 className='text-4xl font-bold tracking-tight'>{home ? 'Home Cloud' : user}</h1>
+      <h1 className='text-4xl font-bold tracking-tight'>{home ? 'Home Cloud' : username}</h1>
 
       <p className='mt-3 text-zinc-600 dark:text-zinc-400'>
         {home

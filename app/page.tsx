@@ -9,7 +9,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<{ p
   const currentPath = params.path ?? ''
   try {
     const files = await getFiles({ userId: null, currentPath })
-    return <PanelWhole user={null} currentPath={currentPath} basePath='/' files={files} />
+    return <PanelWhole currentPath={currentPath} basePath='/' files={files} />
   } catch (err: any) {
     if (err.message === 'Not found') return notFound()
     if (err.message === 'Not a directory')

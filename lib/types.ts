@@ -1,3 +1,5 @@
+import { SubmitEvent, RefObject } from 'react'
+
 export type Theme = 'light' | 'dark'
 
 export type SortKey = 'name' | 'size' | 'modified'
@@ -50,7 +52,7 @@ export type SectorFileProps = {
 }
 
 export type PanelTopProps = {
-  user: string | null
+  username?: string | null
   currentPath: string
 }
 
@@ -74,6 +76,28 @@ export type PanelCentralProps = {
   files: FileItem[]
   currentPath: string
   basePath: string
+}
+
+export type PaginationProps = {
+  page: number
+  totalPages: number
+  onPrevious: () => void
+  onNext: () => void
+}
+
+export type PanelWholeProps = {
+  userId?: string | null
+  username?: string | null
+  files: any[]
+  currentPath: string
+  basePath: string
+}
+
+export type PanelUploadComponentProps = {
+  handleSubmit: (event: SubmitEvent<HTMLFormElement>) => void
+  inputRef: RefObject<HTMLInputElement | null>
+  uploading: boolean
+  error: string
 }
 
 export type PanelCentralComponentProps = {

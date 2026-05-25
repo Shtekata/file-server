@@ -15,6 +15,7 @@ function formatBytes(bytes: number) {
 export function encodeDownloadPath(relativePath: string) {
   return relativePath
     .split('/')
+    .filter(Boolean)
     .map(part => encodeURIComponent(part))
     .join('/')
 }

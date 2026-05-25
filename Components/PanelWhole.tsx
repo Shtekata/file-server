@@ -1,21 +1,21 @@
 import PanelTop from './PanelTop/PanelTop'
 import PanelCentral from './PanelCentral/PanelCentral'
+import PanelUpload from '@/Components/PanelUpload/PanelUpload'
+import { PanelWholeProps } from '@/lib/types'
 
-type PanelWhole = {
-  user: string | null
-  files: any[]
-  currentPath: string
-  basePath: string
-}
-
-export default async function PanelWhole({ user, files, currentPath, basePath }: PanelWhole) {
-  const parentPath = currentPath.split('/').slice(0, -1).join('/')
-
+export default async function PanelWhole({
+  userId = null,
+  username = null,
+  files,
+  currentPath,
+  basePath,
+}: PanelWholeProps) {
   return (
     <main className='min-h-screen bg-zinc-50 text-zinc-950 transition-colors dark:bg-zinc-950 dark:text-zinc-100'>
       <section className='px-3 py-5 sm:px-6 sm:py-10'>
-        <PanelTop user={user} currentPath={currentPath} />
+        <PanelTop username={username} currentPath={currentPath} />
         <PanelCentral files={files} currentPath={currentPath} basePath={basePath} />
+        {userId && <PanelUpload currentPath={currentPath} userId={userId} />}
       </section>
     </main>
   )

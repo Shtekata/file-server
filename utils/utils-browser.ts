@@ -15,3 +15,11 @@ export function fileIcon({ type, name }: { type: 'folder' | 'file'; name: string
 
   return '📦'
 }
+
+export function encodePath(value: string) {
+  return value
+    .split('/')
+    .filter(Boolean)
+    .map(part => encodeURIComponent(part))
+    .join('/')
+}

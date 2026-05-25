@@ -1,9 +1,4 @@
-type PaginationProps = {
-  page: number
-  totalPages: number
-  onPrevious: () => void
-  onNext: () => void
-}
+import { PaginationProps } from '@/lib/types'
 
 export default function Pagination({ page, totalPages, onPrevious, onNext }: PaginationProps) {
   return (
