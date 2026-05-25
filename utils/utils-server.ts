@@ -3,7 +3,6 @@ import path from 'path'
 import { FileItem } from '@/lib/types'
 import safePath from '@/lib/safe-path'
 import safeUserPath from '@/lib/safe-user-path'
-import { notFound } from 'next/dist/client/components/navigation'
 import { Dirent } from 'fs'
 
 function formatBytes(bytes: number) {
@@ -13,7 +12,7 @@ function formatBytes(bytes: number) {
   return `${(bytes / Math.pow(1024, i)).toFixed(i === 0 ? 0 : 1)} ${units[i]}`
 }
 
-function encodeDownloadPath(relativePath: string) {
+export function encodeDownloadPath(relativePath: string) {
   return relativePath
     .split('/')
     .map(part => encodeURIComponent(part))
@@ -33,10 +32,10 @@ export async function getFiles({
 
   try {
     const stat = await fs.stat(directory)
-    if (!stat.isDirectory()) notFound()
+    if (!stat.isDirectory()) throw new Error('Not a directory')
     entries = await fs.readdir(directory, { withFileTypes: true })
   } catch (err: any) {
-    if (err.code === 'ENOENT' || err.code === 'ENOTDIR') notFound()
+    if (err.code === 'ENOENT' || err.code === 'ENOTDIR') throw new Error('Not found', { cause: err })
     throw err
   }
 
@@ -44,9 +43,9 @@ export async function getFiles({
     entries
       .filter(entry => !entry.name.startsWith('.'))
       .map(async entry => {
-        const partPathRoute = home ? '' : 'my-files'
-        const partPathDownload = home ? 'FILES_DIR' : `USER_FILES_DIR/${userId}`
         const relativePath = path.posix.join(currentPath, entry.name)
+        const partPathRoute = home ? '' : 'my-files'
+        const partPathDownload = home ? `/all-downloads/${relativePath}` : `/my-downloads/${relativePath}`
         const fullPath = home ? safePath(relativePath) : await safeUserPath(userId, relativePath)
         const stat = await fs.stat(fullPath)
 
@@ -58,10 +57,7 @@ export async function getFiles({
         return {
           name: entry.name,
           path: relativePath,
-          href:
-            type === 'folder'
-              ? `/${partPathRoute}?path=${encodeURIComponent(relativePath)}`
-              : `/download/${partPathDownload}/${encodeDownloadPath(relativePath)}`,
+          href: type === 'folder' ? `/${partPathRoute}?path=${encodeURIComponent(relativePath)}` : partPathDownload,
           size: type === 'folder' ? 'Folder' : formatBytes(stat.size),
           sizeBytes: type === 'folder' ? 0 : stat.size,
           modifiedLong: d.toLocaleDateString('bg-BG', {

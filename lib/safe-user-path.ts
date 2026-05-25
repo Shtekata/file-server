@@ -1,6 +1,6 @@
 import fs from 'fs/promises'
 import path from 'path'
-import { USER_FILES_DIR } from '@/lib/config'
+import { USER_FILES_DIR } from '@/lib/constants'
 
 export function getUserRoot(userId: string) {
   const userFilesDir = USER_FILES_DIR

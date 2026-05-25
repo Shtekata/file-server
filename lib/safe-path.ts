@@ -1,5 +1,5 @@
 import path from 'path'
-import { FILES_DIR } from '@/lib/config'
+import { FILES_DIR } from '@/lib/constants'
 
 export default function safePath(relativePath: string) {
   const resolved = path.resolve(FILES_DIR, relativePath)
