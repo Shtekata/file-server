@@ -11,7 +11,7 @@ export default function UploadForm({ currentPath, userId }: { currentPath: strin
   const [uploading, setUploading] = useState(false)
   const [error, setError] = useState('')
 
-  async function uploadFile(file: File, userId: string) {
+  async function uploadNginxFile(file: File, userId: string) {
     const encodedCurrentPath = encodePath(currentPath)
     const encodedFileName = encodeURIComponent(file.name)
 
@@ -28,6 +28,23 @@ export default function UploadForm({ currentPath, userId }: { currentPath: strin
     if (!response.ok) throw new Error('Upload failed')
   }
 
+  async function uploadNextFile(file: File) {
+    const formData = new FormData()
+    formData.append('file', file)
+    formData.append('path', currentPath)
+
+    const response = await fetch('/api/files/upload', {
+      method: 'POST',
+      body: formData,
+    })
+
+    if (!response.ok) {
+      const data = await response?.json()
+      setError(data?.error || 'Upload failed')
+      return
+    }
+  }
+
   async function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault()
     setUploading(true)
@@ -42,7 +59,7 @@ export default function UploadForm({ currentPath, userId }: { currentPath: strin
     }
 
     try {
-      await uploadFile(file, userId)
+      process.env.NODE_ENV === 'development' ? await uploadNextFile(file) : await uploadNginxFile(file, userId)
       if (inputRef.current) inputRef.current.value = ''
       router.refresh()
     } catch (err) {
