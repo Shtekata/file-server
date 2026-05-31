@@ -23,7 +23,7 @@ export default function PanelCentralComponent({
     <div className='overflow-hidden rounded-3xl border border-zinc-200 bg-white ring-1 ring-zinc-200 dark:border-white/10 dark:bg-white/5 dark:ring-white/5'>
       <SearchSort search={search} setSearch={setSearch} changeSort={changeSort} />
       {currentPath && <BackToPF parentPath={parentPath} basePath={basePath} />}
-      <TableHeader />
+      <TableHeader canManage={canManage} />
       {pageFiles.length === 0 ? (
         <NoFilesFound />
       ) : (
