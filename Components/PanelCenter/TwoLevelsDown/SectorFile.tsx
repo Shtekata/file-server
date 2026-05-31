@@ -6,8 +6,8 @@ export default function SectorFile({ type, name, canManage }: SectorFileProps) {
   return (
     <div
       className={clsx(
-        'col-span-9 flex items-center font-medium',
-        canManage ? 'sm:col-span-12 gap-1' : 'sm:col-span-15 gap-3',
+        'col-span-18 flex items-center font-medium',
+        canManage ? 'sm:col-span-23 gap-1' : 'sm:col-span-30 gap-3',
       )}
     >
       <span className='text-2xl'>{fileIcon({ type, name })}</span>

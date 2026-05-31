@@ -5,8 +5,8 @@ export default function SectorSize({ size, canManage }: SectorSizeProps) {
   return (
     <div
       className={clsx(
-        'text-sm text-zinc-500 sm:col-span-3 dark:text-zinc-400',
-        canManage ? 'col-span-4' : 'col-span-5',
+        'text-sm text-zinc-500 sm:col-span-6 dark:text-zinc-400',
+        canManage ? 'col-span-7' : 'col-span-10',
       )}
     >
       {size}

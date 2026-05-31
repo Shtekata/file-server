@@ -13,7 +13,7 @@ export default function TableItem({ file, canManage }: { file: FileItem; canMana
   return (
     <div
       className={clsx(
-        'grid grid-cols-24 items-center border-b border-zinc-100 py-4 transition hover:bg-zinc-100 dark:border-white/5 dark:hover:bg-white/10',
+        'grid grid-cols-48 items-center border-b border-zinc-100 py-4 transition hover:bg-zinc-100 dark:border-white/5 dark:hover:bg-white/10',
         canManage ? 'px-2 sm:px-5' : 'px-5',
       )}
     >

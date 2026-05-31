@@ -5,8 +5,8 @@ export default function SectorModified({ modifiedShort, modifiedLong, canManage 
   return (
     <div
       className={clsx(
-        'text-sm text-zinc-500 sm:col-span-4 dark:text-zinc-400',
-        canManage ? 'col-span-4' : 'col-span-5',
+        'text-sm text-zinc-500 sm:col-span-8 dark:text-zinc-400',
+        canManage ? 'col-span-9' : 'col-span-10',
       )}
     >
       <span className='sm:hidden'>{modifiedShort}</span>

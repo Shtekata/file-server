@@ -7,7 +7,7 @@ export default function ButtonOpenGet({ type, href, path, canManage, deleteFile 
     <div
       className={clsx(
         'text-center',
-        canManage ? 'flex justify-evenly col-span-7 sm:col-span-5' : 'col-span-5 sm:col-span-2',
+        canManage ? 'flex justify-between col-span-14 sm:col-span-11' : 'col-span-10 sm:col-span-4',
       )}
     >
       {type === 'file' ? (
