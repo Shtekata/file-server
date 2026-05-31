@@ -1,7 +1,6 @@
 import clsx from 'clsx'
 
 export default function TableHeader({ canManage }: { canManage: boolean }) {
-  console.log('Rendering TableHeader with canManage:', canManage)
   return (
     <div className='grid grid-cols-24 border-b border-zinc-200 px-5 py-3 text-sm text-zinc-500 dark:border-white/10 dark:text-zinc-400'>
       <div className='col-span-9 sm:col-span-15'>Name</div>

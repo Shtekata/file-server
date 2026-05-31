@@ -4,7 +4,7 @@ import clsx from 'clsx'
 
 export default function ButtonOpenGet({ type, href, path, canManage, deleteFile }: ButtonOpenGetProps) {
   return (
-    <div className={clsx('sm:col-span-2 text-center', canManage ? 'flex justify-evenly col-span-7' : 'col-span-5')}>
+    <div className={clsx('sm:col-span-5 text-center', canManage ? 'flex justify-evenly col-span-7' : 'col-span-5')}>
       {type === 'file' ? (
         <a
           href={href}
@@ -23,7 +23,7 @@ export default function ButtonOpenGet({ type, href, path, canManage, deleteFile 
       {canManage && (
         <button
           onClick={() => deleteFile(path)}
-          className='rounded-xl border border-red-200 px-3 py-1.5 text-sm font-medium text-red-600 transition hover:bg-red-50 dark:border-red-500/30 dark:text-red-300 dark:hover:bg-red-500/10'
+          className='rounded-xl border border-red-200 px-3 py-1.5 sm:px-4 sm:py-2 text-sm font-medium text-red-600 transition hover:bg-red-50 dark:border-red-500/30 dark:text-red-300 dark:hover:bg-red-500/10'
         >
           Del
         </button>
