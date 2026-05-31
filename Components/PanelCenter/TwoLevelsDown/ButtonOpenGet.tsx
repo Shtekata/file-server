@@ -4,7 +4,12 @@ import clsx from 'clsx'
 
 export default function ButtonOpenGet({ type, href, path, canManage, deleteFile }: ButtonOpenGetProps) {
   return (
-    <div className={clsx('sm:col-span-5 text-center', canManage ? 'flex justify-evenly col-span-7' : 'col-span-5')}>
+    <div
+      className={clsx(
+        'text-center',
+        canManage ? 'flex justify-evenly col-span-7 sm:col-span-5' : 'col-span-5 sm:col-span-2',
+      )}
+    >
       {type === 'file' ? (
         <a
           href={href}
