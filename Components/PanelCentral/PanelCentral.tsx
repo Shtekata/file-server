@@ -5,7 +5,7 @@ import { SortKey, PanelCentralProps } from '@/lib/types'
 import { useEffect, useMemo, useState } from 'react'
 import PanelCentralComponent from './PanelCenterComponent'
 
-export default function PanelCentral({ files, currentPath, basePath }: PanelCentralProps) {
+export default function PanelCentral({ files, currentPath, basePath, canManage }: PanelCentralProps) {
   const [search, setSearch] = useState('')
   const [sortKey, setSortKey] = useState<SortKey>('name')
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc')
@@ -55,6 +55,7 @@ export default function PanelCentral({ files, currentPath, basePath }: PanelCent
       pageFiles={pageFiles}
       page={page}
       totalPages={totalPages}
+      canManage={canManage}
     />
   )
 }

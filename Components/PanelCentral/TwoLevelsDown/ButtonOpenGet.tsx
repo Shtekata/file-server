@@ -1,9 +1,10 @@
 import Link from 'next/link'
 import { ButtonOpenGetProps } from '@/lib/types'
+import clsx from 'clsx'
 
-export default function ButtonOpenGet({ type, href }: ButtonOpenGetProps) {
+export default function ButtonOpenGet({ type, href, path, canManage, deleteFile }: ButtonOpenGetProps) {
   return (
-    <div className='col-span-5 sm:col-span-2 text-center'>
+    <div className={clsx('sm:col-span-2 text-center', canManage ? 'flex justify-evenly col-span-7' : 'col-span-5')}>
       {type === 'file' ? (
         <a
           href={href}
@@ -14,10 +15,18 @@ export default function ButtonOpenGet({ type, href }: ButtonOpenGetProps) {
       ) : (
         <Link
           href={href}
-          className='text-sm text-zinc-700 hover:text-zinc-950 dark:text-zinc-300 dark:hover:text-zinc-100'
+          className='text-sm text-zinc-700 px-1.5 py-1.5 sm:px-2.5 sm:py-2 hover:text-zinc-950 dark:text-zinc-300 dark:hover:text-zinc-100'
         >
           Open
         </Link>
+      )}
+      {canManage && (
+        <button
+          onClick={() => deleteFile(path)}
+          className='rounded-xl border border-red-200 px-3 py-1.5 text-sm font-medium text-red-600 transition hover:bg-red-50 dark:border-red-500/30 dark:text-red-300 dark:hover:bg-red-500/10'
+        >
+          Del
+        </button>
       )}
     </div>
   )

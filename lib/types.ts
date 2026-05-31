@@ -44,11 +44,20 @@ export type ButtonLinkProps = {
 export type ButtonOpenGetProps = {
   type: 'file' | 'folder'
   href: string
+  path: string
+  canManage: boolean
+  deleteFile: (path: string) => void
 }
 
 export type SectorFileProps = {
   type: 'file' | 'folder'
   name: string
+  canManage: boolean
+}
+
+export type SectorSizeProps = {
+  size: string
+  canManage: boolean
 }
 
 export type PanelTopProps = {
@@ -59,6 +68,7 @@ export type PanelTopProps = {
 export type SectorModifiedProps = {
   modifiedShort: string
   modifiedLong: string
+  canManage: boolean
 }
 
 export type SearchBarProps = {
@@ -76,6 +86,7 @@ export type PanelCentralProps = {
   files: FileItem[]
   currentPath: string
   basePath: string
+  canManage: boolean
 }
 
 export type PaginationProps = {
@@ -111,4 +122,5 @@ export type PanelCentralComponentProps = {
   pageFiles: FileItem[]
   page: number
   totalPages: number
+  canManage: boolean
 }
