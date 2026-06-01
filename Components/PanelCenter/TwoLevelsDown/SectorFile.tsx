@@ -7,9 +7,7 @@ export default function SectorFile({ type, name, canManage }: SectorFileProps) {
     <div
       className={clsx(
         'flex items-center font-medium',
-        canManage
-          ? 'col-span-48 row-start-1 gap-1 border-b border-dashed py-3 border-zinc-200 dark:border-white/10'
-          : 'col-span-18 sm:col-span-30 gap-3',
+        canManage ? 'col-span-22 gap-1 py-3' : 'col-span-18 sm:col-span-30 gap-3',
       )}
     >
       <span className='text-2xl'>{fileIcon({ type, name })}</span>

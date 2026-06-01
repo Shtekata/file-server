@@ -25,7 +25,7 @@ export default function TableItem({ file, canManage }: { file: FileItem; canMana
           />
         </div>
       ) : (
-        <div className='grid grid-cols-48 grid-rows-2 items-center border-b border-zinc-100 transition hover:bg-zinc-100 dark:border-white/5 dark:hover:bg-white/10 px-2 sm:px-5'>
+        <div className='grid grid-cols-48 items-center border-b border-zinc-100 transition hover:bg-zinc-100 dark:border-white/5 dark:hover:bg-white/10 px-2 sm:px-5'>
           <SectorFile type={file.type} name={file.name} canManage={canManage} />
           <SectorSize size={file.size} canManage={canManage} />
           <SectorModified modifiedShort={file.modifiedShort} modifiedLong={file.modifiedLong} canManage={canManage} />
