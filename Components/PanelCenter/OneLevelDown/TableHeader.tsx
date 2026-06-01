@@ -13,9 +13,9 @@ export default function TableHeader({ canManage }: { canManage: boolean }) {
           <div className='col-span-48 row-start-1 border-b border-dashed py-3 border-zinc-200 dark:border-white/10'>
             Name
           </div>
-          <div className='col-span-7 col-start-19 sm:col-span-6 row-start-2 py-3'>Size</div>
-          <div className='col-span-9 col-start-26 sm:col-span-8 row-start-2 py-3'>Modified</div>
-          <div className='col-span-14 col-start-35 sm:col-span-11 row-start-2 py-3 text-center'>Action</div>
+          <div className='col-span-7 col-start-5 sm:col-span-6 row-start-2 py-3'>Size</div>
+          <div className='col-span-9 col-start-12 sm:col-span-8 row-start-2 py-3'>Modified</div>
+          <div className='col-span-28 col-start-21 sm:col-span-11 row-start-2 py-3 text-center'>Action</div>
         </div>
       )}
     </>
