@@ -5,10 +5,7 @@ import clsx from 'clsx'
 export default function SectorFile({ type, name, canManage }: SectorFileProps) {
   return (
     <div
-      className={clsx(
-        'flex items-center font-medium',
-        canManage ? 'col-span-22 gap-1' : 'col-span-22 sm:col-span-32 gap-3',
-      )}
+      className={clsx('flex items-center font-medium gap-3', canManage ? 'col-span-14' : 'col-span-20 sm:col-span-32')}
     >
       <span className='text-2xl'>{fileIcon({ type, name })}</span>
       <span className='truncate pr-3'>{name}</span>

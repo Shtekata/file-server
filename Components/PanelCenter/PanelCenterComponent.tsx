@@ -25,7 +25,7 @@ export default function PanelCentralComponent({
       <SearchSort search={search} setSearch={setSearch} changeSort={changeSort} />
       {currentPath && <BackToPF parentPath={parentPath} basePath={basePath} />}
       <div className={clsx('', canManage && 'overflow-x-auto')}>
-        <div className={clsx('', canManage && 'min-w-4xl')}>
+        <div className={clsx('', canManage && 'min-w-lg')}>
           <TableHeader />
           {pageFiles.length === 0 ? (
             <NoFilesFound />
