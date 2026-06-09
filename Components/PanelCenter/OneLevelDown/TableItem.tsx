@@ -12,7 +12,7 @@ export default function TableItem({ file, canManage }: { file: FileItem; canMana
   return (
     <>
       {!canManage ? (
-        <div className='grid grid-cols-48 items-center border-b border-zinc-100 py-4 transition hover:bg-zinc-100 dark:border-white/5 dark:hover:bg-white/10 px-5'>
+        <div className='grid grid-cols-48 items-center border-b border-zinc-100 py-4 transition hover:bg-zinc-100 dark:border-white/5 dark:hover:bg-white/10 pl-3 pr-2'>
           <SectorFile type={file.type} name={file.name} canManage={canManage} />
           <SectorSize size={file.size} canManage={canManage} />
           <SectorModified modifiedShort={file.modifiedShort} modifiedLong={file.modifiedLong} canManage={canManage} />

@@ -7,20 +7,20 @@ export default function ButtonOpenGet({ type, href, path, canManage, deleteFile 
     <div
       className={clsx(
         'text-center',
-        canManage ? 'flex justify-between col-span-15 sm:col-span-15' : 'col-span-10 sm:col-span-4',
+        canManage ? 'flex justify-between col-span-15 sm:col-span-15' : 'col-span-8 sm:col-span-4',
       )}
     >
       {type === 'file' ? (
         <a
           href={href}
-          className='min-w-17 rounded-xl bg-zinc-900 px-1.5 py-1.5 text-sm font-medium text-white transition hover:bg-zinc-700 sm:px-2.5 sm:py-2.5 dark:font-semibold dark:bg-zinc-100 dark:text-zinc-950 dark:hover:bg-white'
+          className='inline-block min-w-12 rounded-xl text-sm text-white bg-zinc-900 px-1.5 py-1.5 font-medium sm:px-2.5 sm:py-2.5 transition hover:bg-zinc-700 dark:font-semibold dark:bg-zinc-100 dark:text-zinc-950 dark:hover:bg-white'
         >
           Get
         </a>
       ) : (
         <Link
           href={href}
-          className='min-w-17 rounded-xl text-sm text-zinc-700 px-1.5 py-1.5 sm:px-2.5 sm:py-2.5 border border-zinc-200 hover:text-zinc-950 dark:text-zinc-300 dark:border-white/10 dark:hover:text-zinc-100'
+          className='inline-block min-w-12 rounded-xl text-sm text-zinc-700 px-1.5 py-1.5 sm:px-2.5 sm:py-2.5 border border-zinc-200 transition hover:text-zinc-950 dark:text-zinc-300 dark:border-white/10 dark:hover:text-zinc-100'
         >
           Open
         </Link>
