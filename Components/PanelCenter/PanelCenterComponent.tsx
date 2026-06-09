@@ -5,6 +5,7 @@ import TableHeader from './OneLevelDown/TableHeader'
 import TableItem from './OneLevelDown/TableItem'
 import NoFilesFound from './OneLevelDown/NoFilesFound'
 import Pagination from '../Pagination'
+import clsx from 'clsx'
 
 export default function PanelCentralComponent({
   search,
@@ -23,8 +24,8 @@ export default function PanelCentralComponent({
     <div className='rounded-3xl border border-zinc-200 bg-white ring-1 ring-zinc-200 dark:border-white/10 dark:bg-white/5 dark:ring-white/5'>
       <SearchSort search={search} setSearch={setSearch} changeSort={changeSort} />
       {currentPath && <BackToPF parentPath={parentPath} basePath={basePath} />}
-      <div className='overflow-x-auto'>
-        <div className='min-w-4xl'>
+      <div className={clsx('', canManage && 'overflow-x-auto')}>
+        <div className={clsx('', canManage && 'min-w-4xl')}>
           <TableHeader />
           {pageFiles.length === 0 ? (
             <NoFilesFound />
