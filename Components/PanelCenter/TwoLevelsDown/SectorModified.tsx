@@ -5,7 +5,7 @@ export default function SectorModified({ modifiedShort, modifiedLong, canManage 
   return (
     <div
       className={clsx(
-        'text-sm text-zinc-500 sm:col-span-6 dark:text-zinc-400',
+        'text-sm text-zinc-500 sm:col-span-7 dark:text-zinc-400',
         canManage ? 'col-span-6' : 'col-span-9',
       )}
     >
