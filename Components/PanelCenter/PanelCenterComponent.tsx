@@ -26,7 +26,7 @@ export default function PanelCentralComponent({
       {currentPath && <BackToPF parentPath={parentPath} basePath={basePath} />}
       <div className={clsx('', canManage && 'overflow-x-auto')}>
         <div className={clsx('', canManage && 'min-w-lg')}>
-          <TableHeader />
+          <TableHeader canManage={canManage} />
           {pageFiles.length === 0 ? (
             <NoFilesFound />
           ) : (
