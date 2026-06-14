@@ -6,11 +6,11 @@ export default function SectorModified({ modifiedShort, modifiedLong, canManage 
     <div
       className={clsx(
         'text-sm text-zinc-500 dark:text-zinc-400',
-        canManage ? 'col-span-7 sm:col-span-6' : 'col-span-10  sm:col-span-7',
+        canManage ? 'col-span-7 md:col-span-7' : 'col-span-9  md:col-span-7',
       )}
     >
-      <span className='sm:hidden'>{modifiedShort}</span>
-      <span className='hidden sm:inline'>{modifiedLong}</span>
+      <span className='md:hidden'>{modifiedShort}</span>
+      <span className='hidden md:inline'>{modifiedLong}</span>
     </div>
   )
 }
