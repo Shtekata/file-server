@@ -4,7 +4,7 @@ import { deleteFile } from '@/utils/utils-browser'
 import SectorFile from '../TwoLevelsDown/SectorFile'
 import SectorSize from '../TwoLevelsDown/SectorSize'
 import SectorModified from '../TwoLevelsDown/SectorModified'
-import ButtonOpenGet from '../TwoLevelsDown/ButtonOpenGet'
+import SectorButtons from '../TwoLevelsDown/SectorButtons'
 
 export default function TableItem({ file, canManage }: { file: FileItem; canManage: boolean }) {
   const router = useRouter()
@@ -14,7 +14,7 @@ export default function TableItem({ file, canManage }: { file: FileItem; canMana
       <SectorFile type={file.type} name={file.name} canManage={canManage} />
       <SectorSize size={file.size} canManage={canManage} />
       <SectorModified modifiedShort={file.modifiedShort} modifiedLong={file.modifiedLong} canManage={canManage} />
-      <ButtonOpenGet
+      <SectorButtons
         type={file.type}
         href={file.href}
         path={file.path}
