@@ -63,6 +63,7 @@ export type SectorSizeProps = {
 export type PanelTopProps = {
   username?: string | null
   currentPath: string
+  canManage?: boolean
 }
 
 export type SectorModifiedProps = {
@@ -82,7 +83,7 @@ export type SearchSortProps = {
   changeSort: (value: 'name' | 'size' | 'modified') => void
 }
 
-export type PanelCentralProps = {
+export type PanelCenterProps = {
   files: FileItem[]
   currentPath: string
   basePath: string
@@ -111,7 +112,7 @@ export type PanelUploadComponentProps = {
   error: string
 }
 
-export type PanelCentralComponentProps = {
+export type PanelCenterComponentProps = {
   search: string
   setSearch: (value: string) => void
   changeSort: (value: 'name' | 'size' | 'modified') => void

@@ -1,11 +1,11 @@
 'use client'
 
 import { PAGE_SIZE } from '@/lib/constants'
-import { SortKey, PanelCentralProps } from '@/lib/types'
+import { SortKey, PanelCenterProps } from '@/lib/types'
 import { useEffect, useMemo, useState } from 'react'
-import PanelCentralComponent from './PanelCenterComponent'
+import PanelCenterComponent from './PanelCenterComponent'
 
-export default function PanelCentral({ files, currentPath, basePath, canManage }: PanelCentralProps) {
+export default function PanelCenter({ files, currentPath, basePath, canManage }: PanelCenterProps) {
   const [search, setSearch] = useState('')
   const [sortKey, setSortKey] = useState<SortKey>('name')
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc')
@@ -44,7 +44,7 @@ export default function PanelCentral({ files, currentPath, basePath, canManage }
   }
 
   return (
-    <PanelCentralComponent
+    <PanelCenterComponent
       search={search}
       setSearch={setSearch}
       changeSort={changeSort}
