@@ -1,4 +1,4 @@
-import { PanelCentralComponentProps } from '@/lib/types'
+import { PanelCenterComponentProps } from '@/lib/types'
 import SearchSort from './OneLevelDown/SearchSort'
 import BackToPF from './OneLevelDown/BackToPF'
 import TableHeader from './OneLevelDown/TableHeader'
@@ -7,7 +7,7 @@ import NoFilesFound from './OneLevelDown/NoFilesFound'
 import Pagination from '../Pagination'
 import clsx from 'clsx'
 
-export default function PanelCentralComponent({
+export default function PanelCenterComponent({
   search,
   setSearch,
   changeSort,
@@ -19,7 +19,7 @@ export default function PanelCentralComponent({
   page,
   totalPages,
   canManage,
-}: PanelCentralComponentProps) {
+}: PanelCenterComponentProps) {
   return (
     <div className='rounded-3xl border border-zinc-200 bg-white ring-1 ring-zinc-200 dark:border-white/10 dark:bg-white/5 dark:ring-white/5'>
       <SearchSort search={search} setSearch={setSearch} changeSort={changeSort} />

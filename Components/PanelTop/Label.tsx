@@ -5,7 +5,7 @@ export default function Label({ username, currentPath }: PanelTopProps) {
   return (
     <div className='min-w-0'>
       <p className='mb-2 text-sm uppercase tracking-[0.3em] text-zinc-500 dark:text-zinc-400'>
-        {home ? 'myperfume.bg' : 'My Files'}
+        {home ? 'zenasen.com' : 'My Files'}
       </p>
 
       <h1 className='text-4xl font-bold tracking-tight'>{home ? 'Home Cloud' : username}</h1>
